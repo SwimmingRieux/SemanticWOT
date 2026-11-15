@@ -1,0 +1,57 @@
+# Copy to ./wot.toml or $XDG_CONFIG_HOME/semantic-wot/config.toml.
+# All keys are optional. Embedding defaults select OpenAI unless endpoint is supplied.
+# Keep credentials outside this file: export OPENAI_API_KEY in the server environment.
+
+# Similarity-gated stationary walk, seed decay, age adjustment and selection.
+alpha = 0.15
+epsilon = 0.0001
+maxPushesPerNode = 10000
+seedHalfLifeDays = 30
+noteHalfLifeDays = 180
+candidatePool = 200
+limit = 20
+lambda = 0.5
+
+# Graph and collection bounds.
+maxCandidates = 5000
+maxEdges = 20000
+maxCoZappers = 20
+maxZapsPerCoZapper = 20
+maxSeedZaps = 20
+relays = ["wss://nos.lol"]
+# Cap configured relays plus discovered hints; all configured relays are retained.
+# For exactly one relay, also set relays to a one-entry array.
+maxRelays = 1
+relayTimeoutMs = 10000
+relayPageSize = 500
+maxRelayPages = 100
+relayConcurrency = 8
+
+# OpenAI defaults: text-embedding-3-small, 1536 dimensions.
+# For Ollama, uncomment endpoint; defaults then become nomic-embed-text and 768.
+# endpoint = "http://127.0.0.1:11434"
+# model = "text-embedding-3-small"
+# dimensions = 1536
+# A supported custom model/dimension pair can override the selected defaults.
+# Pin a user-managed modelVersion to invalidate mutable remote labels after changes.
+modelVersion = "default"
+processingVersion = "chunks-v1"
+openaiEndpoint = "https://api.openai.com/v1"
+batchSize = 32
+chunkTokens = 500
+chunkOverlap = 64
+maxChunks = 8
+similarityPower = 4
+
+# Cache size is in bytes; timestamps/TTLs/overlap are in seconds.
+collectionTtlSeconds = 300
+rankingTtlSeconds = 300
+refreshOverlapSeconds = 300
+cacheMaxBytes = 2000000000
+cachePath = "wot.sqlite"
+
+# Output is always JSON; --json is accepted for explicitness.
+json = true
+compact = false
+offline = false
+refresh = false

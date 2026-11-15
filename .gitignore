@@ -1,0 +1,16 @@
+node_modules/
+dist/
+.tmp/
+*.sqlite
+*.sqlite-shm
+*.sqlite-wal
+coverage/
+
+# Local runtime settings and generated verification output.
+.env
+.env.*
+!examples/*.env
+wot.toml
+data/
+playwright-report/
+test-results/

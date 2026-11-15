@@ -1,0 +1,21 @@
+import { test } from 'node:test';
+import assert from 'node:assert/strict';
+import { finalizeEvent } from 'nostr-tools';
+import { verifyIndexedEvent, parseReceipt } from '../../src/adapters/nostr.js';
+import { receipt, key, now } from '../fixtures.js';
+const secret = new Uint8Array(32).fill(1);
+test('production event validation verifies signed receipts and embedded requests and rejects altered evidence', () => {
+  const unsigned = receipt(1, 10, 1);
+  const request = finalizeEvent({ kind: 9734, created_at: now, content: '', tags: [['e', key(1)], ['p', key(20)], ['amount', '1000000']] }, secret);
+  unsigned.tags[0][1] = request.pubkey;
+  unsigned.tags[3][1] = JSON.stringify(request);
+  unsigned.tags.push(['p', key(20)]);
+  const signed = finalizeEvent(unsigned, secret);
+  assert.ok(verifyIndexedEvent(signed).ok);
+  assert.ok(parseReceipt(signed).ok);
+  const altered = JSON.parse(JSON.stringify(signed)); altered.content = 'changed';
+  assert.equal(verifyIndexedEvent(altered).ok, false);
+  const badRequest = JSON.parse(JSON.stringify(request)); badRequest.tags.push(['e', key(2)]);
+  const bad = finalizeEvent({ ...unsigned, tags: unsigned.tags.map(t => t[0] === 'description' ? ['description', JSON.stringify(badRequest)] : t) }, secret);
+  assert.equal(verifyIndexedEvent(bad).ok, false);
+});

@@ -1,0 +1,46 @@
+{
+  "name": "semantic-wot",
+  "version": "0.1.0",
+  "license": "MIT",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "bin": {
+    "wot": "dist/cli.js"
+  },
+  "exports": {
+    ".": "./dist/index.js",
+    "./sqlite": "./dist/adapters/sqlite.js",
+    "./config": "./dist/adapters/config.js"
+  },
+  "scripts": {
+    "build": "tsc && node scripts/copy-web-assets.mjs",
+    "typecheck": "tsc --noEmit && tsc -p tsconfig.test.json",
+    "test": "node --import tsx --experimental-test-isolation=none --test test/unit/*.test.ts",
+    "test:integration": "npm run build && node --import tsx --test test/integration/*.test.ts",
+    "start:web": "node dist/web/main.js",
+    "test:browser": "npm run build && node --import tsx --test test/browser/*.test.ts",
+    "test:docker": "node --import tsx --test test/docker/*.test.ts"
+  },
+  "dependencies": {
+    "@opentelemetry/api": "1.10.0",
+    "@opentelemetry/exporter-trace-otlp-http": "0.301.2",
+    "@opentelemetry/sdk-node": "0.301.2",
+    "@opentelemetry/sdk-trace": "3.1.1",
+    "@scure/base": "^2.4.0",
+    "better-sqlite3": "^13.0.3",
+    "nostr-tools": "2.25.5",
+    "smol-toml": "^1.9.1",
+    "ws": "^8.22.1"
+  },
+  "devDependencies": {
+    "@types/better-sqlite3": "^9.6.0",
+    "@types/node": "^26.6.6",
+    "@types/ws": "^8.18.2",
+    "playwright-core": "^1.65.1",
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2"
+  }
+}

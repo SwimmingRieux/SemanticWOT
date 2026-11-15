@@ -1,0 +1,22 @@
+# Allowlist: no local configuration, credentials, data, history or test artifacts.
+**
+!Dockerfile
+!package.json
+!package-lock.json
+!tsconfig.json
+!src/
+!src/*.ts
+!src/core/
+!src/core/*.ts
+!src/application/
+!src/application/*.ts
+!src/adapters/
+!src/adapters/*.ts
+!src/web/
+!src/web/*.ts
+!src/web/assets/
+!src/web/assets/*.html
+!src/web/assets/*.css
+!src/web/assets/*.js
+!scripts/
+!scripts/copy-web-assets.mjs

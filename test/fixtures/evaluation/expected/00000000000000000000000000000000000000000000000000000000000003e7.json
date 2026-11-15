@@ -1,0 +1,28 @@
+{
+  "viewer": "00000000000000000000000000000000000000000000000000000000000003e7",
+  "generatedAt": 1800000000,
+  "indexedAt": 1800000000,
+  "selection": "mmr",
+  "items": [],
+  "diagnostics": [
+    {
+      "code": "no-seeds",
+      "message": "No usable viewer-sent note zaps were found in the cache."
+    }
+  ],
+  "counts": {
+    "seeds": 0,
+    "notes": 3,
+    "edges": 0,
+    "receipts": 5,
+    "embeddings": 0
+  },
+  "walk": {
+    "scores": {},
+    "pushes": 0,
+    "residual": 0,
+    "accumulated": 0,
+    "normalizedErrorBound": 0,
+    "reason": "converged"
+  }
+}
